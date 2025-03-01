@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+body {
+ background-image: radial-gradient( white, lightgray);
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: 100vh 100hv;
+ height: 100vh;
+}
+.local-list {
+    border-top: 2px solid #000;
+}
+.local-list th {
+    padding: 0 10px 0 10px;
+    background-color: #f4f4f4;  /* Cor neutra de fundo */
+    color: #333;  /* Cor de texto escuro, para boa legibilidade */
+    font-size: 14px;  /* Texto menor, como em um livro */
+    font-weight: normal;  /* Peso da fonte normal, sem negrito */
+    text-align: left;
+    text-transform: capitalize;  /* Capitalização das primeiras letras */
+    letter-spacing: 0.5px;  /* Leve espaçamento entre as letras */
+    border-bottom: 2px solid #ccc;  /* Linha discreta e clara abaixo do cabeçalho */
+    border-right: 1px solid #ccc;  /* Linha discreta e clara ao lado do cabeçalho */
+    border-radius: 4px 4px 0 0;  /* Bordas arredondadas no topo */
+    box-shadow: none;  /* Sem sombra para manter a simplicidade */
+}
+
+.local-list th:hover {
+    background-color: #e0e0e0;  /* Cor de fundo suave ao passar o mouse */
+}
+
+.local-list-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: darkorchid;
+    filter: brightness(.6);
+    text-transform: uppercase;
+    padding: 5px 0 5px 0;
+}
+.local-list td {
+    padding: 0 10px 0 10px;
+    border-right: 1px solid #ccc;
+    background-color: white;
+}
