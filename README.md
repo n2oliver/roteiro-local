@@ -1,4 +1,4 @@
-# Roteiro de Viagens
+# Roteiro de Viagens (WIP)
 
 Este projeto permite gerenciar roteiros de viagens, possibilitando ao usuário adicionar, remover e editar registros. Cada roteiro possui informações sobre nome, slug, cidade e estado, enquanto os campos de data de criação e atualização são gerados dinamicamente.
 
@@ -9,10 +9,10 @@ Este projeto permite gerenciar roteiros de viagens, possibilitando ao usuário a
 - **Gerenciamento automático de datas**: Os campos "criado em" e "atualizado em" são gerados automaticamente.
 
 ## Tecnologias Utilizadas
-- **PHP 7.4**
-- **CodeIgniter 3**
-- **MySQL**
-- **Bootstrap 5.3.3**
+- **Laravel 10**
+- **Vue 3.5.13**
+- **PostgreSQL 16**
+- **PHP ^8.1**
 
 ## Instalação
 1. Clone o repositório:
@@ -25,13 +25,17 @@ Este projeto permite gerenciar roteiros de viagens, possibilitando ao usuário a
    ```
 3. Configure o banco de dados em `application/config/database.php`.
 4. Execute as migrações para criar as tabelas necessárias.
-5. Inicie o servidor local:
+5. Inicie o servidor Artisan:
    ```sh
-   php -S localhost:8000 -t public
+   php artisan serve
    ```
+5. Inicie o servidor Vue:
+    ```sh
+    npm run dev
+    ```
 
 ## Uso
-- Acesse `http://localhost:8000` no navegador.
+- Acesse `http://localhost:5173` no navegador.
 - Utilize a interface para gerenciar seus roteiros.
 
 ## Contribuição
