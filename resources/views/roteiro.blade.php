@@ -19,6 +19,7 @@
     <body>
         {{-- HTML element to mount the Vue application --}}
         <div id="app">
+            <toolbar></toolbar>
             <local-list></local-list>
         </div>
         {{-- including the app.js file --}}

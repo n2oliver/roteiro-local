@@ -8,7 +8,7 @@ import './bootstrap';
 import { createApp } from 'vue';
 import { Quasar, Notify } from 'quasar';
 import '@quasar/extras/material-icons/material-icons.css';
-import 'quasar/src/css/index.sass'
+import 'quasar/src/css/index.sass';
 
 /**
 * Em seguida, criaremos uma nova instância do aplicativo Vue. Você pode então 
@@ -20,6 +20,7 @@ const app = createApp({});
 
 import LocalList from './components/LocalList.vue';
 import DeleteDialog from './components/DeleteDialog.vue';
+import Toolbar from './components/Toolbar.vue';
 
 app.use(Quasar, {
     plugins: {
@@ -29,6 +30,7 @@ app.use(Quasar, {
         notify: {}/* look at QuasarConfOptions from the API card */
     },
   })
+app.component('toolbar', Toolbar);
 app.component('local-list', LocalList);
 app.component('delete-dialog', DeleteDialog);
 

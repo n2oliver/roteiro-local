@@ -1,5 +1,5 @@
 <template>
-    <div class="sm:w-full md:w-2/3 lg:w-2/3 m-auto">
+    <div class="q-pa-md sm:w-full md:w-2/3 lg:w-2/3 m-auto">
       <h2 class="local-list-title">
         <span style="min-width: 260px; display: flex; align-items: center">
           <span style="padding-right: 8px">Roteiro de Viagens</span>
@@ -7,7 +7,7 @@
         </span>
       </h2>
   
-      <table border="1" class="local-list">
+      <table border="1" class="local-list sm:w-full md:w-full lg:w-full">
         <thead>
           <tr>
             <th>Nome</th>

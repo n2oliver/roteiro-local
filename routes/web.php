@@ -14,7 +14,7 @@ use App\Http\Controllers\LocalController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('roteiro');
 });
 
 Route::controller(LocalController::class)->group(function() {
