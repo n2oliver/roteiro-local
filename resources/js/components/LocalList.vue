@@ -3,12 +3,12 @@
       <table border="1" class="local-list sm:w-full md:w-full lg:w-full">
         <thead>
           <tr>
-            <th>Nome</th>
+            <th>Local</th>
             <th>Slug</th>
             <th>Cidade</th>
             <th>Estado</th>
-            <th>Criado em</th>
-            <th>Atualizado em</th>
+            <th>Criado</th>
+            <th>Atualizado</th>
             <th>Ações</th>
           </tr>
         </thead>
