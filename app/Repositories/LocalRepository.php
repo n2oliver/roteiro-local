@@ -13,4 +13,20 @@ class LocalRepository {
             dd($e->getMessage());
         }
     }
+    public function find($id) {
+        try {
+            $data = Local::find($id);
+            return $data;
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+        }
+    }
+    public function delete($local) {
+        try {
+            $data = $local->delete();
+            return $data;
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+        }
+    }
 }
