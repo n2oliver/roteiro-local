@@ -29,4 +29,12 @@ class LocalRepository {
             dd($e->getMessage());
         }
     }
+
+    public function insert($local) {
+        try {
+            $local->save();
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+        }
+    }
 }

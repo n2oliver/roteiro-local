@@ -1,5 +1,5 @@
 <template>
-    <div class="sm:w-full md:w-2/3 lg:w-2/3 m-auto">
+    <div class="sm:w-full md:w-full lg:w-2/3 m-auto">
       <table border="1" class="local-list m-auto sm:w-full md:w-full lg:w-full">
         <thead>
           <tr>
@@ -14,13 +14,69 @@
         </thead>
         <tbody ref="data">
           <tr>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
+            <td>
+              <q-circular-progress
+                indeterminate
+                rounded
+                size="10px"
+                color="lime"
+                class="q-ma-xs"
+              />
+            </td>
+            <td>
+              <q-circular-progress
+                indeterminate
+                rounded
+                size="10px"
+                color="lime"
+                class="q-ma-xs"
+              />
+            </td>
+            <td>
+              <q-circular-progress
+                indeterminate
+                rounded
+                size="10px"
+                color="lime"
+                class="q-ma-xs"
+              />
+            </td>
+            <td>
+              <q-circular-progress
+                indeterminate
+                rounded
+                size="10px"
+                color="lime"
+                class="q-ma-xs"
+              />
+            </td>
+            <td>
+              <q-circular-progress
+                indeterminate
+                rounded
+                size="10px"
+                color="lime"
+                class="q-ma-xs"
+              />
+            </td>
+            <td>
+              <q-circular-progress
+                indeterminate
+                rounded
+                size="10px"
+                color="lime"
+                class="q-ma-xs"
+              />
+            </td>
+            <td>
+              <q-circular-progress
+                indeterminate
+                rounded
+                size="10px"
+                color="lime"
+                class="q-ma-xs"
+              />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -47,15 +103,6 @@
       const local_id = ref(null);
       const update_list = ref(() => {
         let tbody = document.querySelector(".local-list tbody");
-        tbody.innerHTML += "<tr>"+
-          "<td>Carregando...</td>" +
-          "<td>Carregando...</td>" +
-          "<td>Carregando...</td>" +
-          "<td>Carregando...</td>" +
-          "<td>Carregando...</td>" +
-          "<td>Carregando...</td>" +
-          "<td>Carregando...</td>" +
-        "</tr>";
   
         fetch('/locals')
           .then(response => response.json())

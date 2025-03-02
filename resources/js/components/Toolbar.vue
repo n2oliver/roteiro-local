@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:w-full md:w-2/3 lg:w-2/3 m-auto">
+  <div class="sm:w-full md:w-full lg:w-2/3 m-auto">
     <q-toolbar class="bg-primary text-white">
       <q-avatar>
         <img src="/icons/pin.svg"/>

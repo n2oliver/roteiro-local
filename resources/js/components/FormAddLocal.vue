@@ -90,7 +90,7 @@ export default {
         '';
       console.log(this.slug)
     },
-    enviarFormulario() {
+    async enviarFormulario() {
       if(
       this.name == '' ||
       this.slug == '' ||
@@ -103,9 +103,25 @@ export default {
         });
         return false;
       }
-      console.log('Enviado:', this.nome, this.email);
-      this.$emit('fechar'); // Fecha o modal ao enviar
-      this.resetForm();
+
+      const response = await fetch(`/locals`, {
+            method: 'POST',
+            body: JSON.stringify({
+              name: this.name,
+              slug: this.slug,
+              city: this.city,
+              state: this.state,
+            }),
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok) {
+          console.log('Enviado:', this.nome, this.email);
+          this.$emit('fechar'); // Fecha o modal ao enviar
+          this.resetForm();
+        }
     }
   }
 };
