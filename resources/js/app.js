@@ -18,9 +18,10 @@ import 'quasar/src/css/index.sass';
 
 const app = createApp({});
 
+import Toolbar from './components/Toolbar.vue';
+import AddLocalButton from './components/AddLocalButton.vue';
 import LocalList from './components/LocalList.vue';
 import DeleteDialog from './components/DeleteDialog.vue';
-import Toolbar from './components/Toolbar.vue';
 
 app.use(Quasar, {
     plugins: {
@@ -31,6 +32,7 @@ app.use(Quasar, {
     },
   })
 app.component('toolbar', Toolbar);
+app.component('add-local-button', AddLocalButton);
 app.component('local-list', LocalList);
 app.component('delete-dialog', DeleteDialog);
 

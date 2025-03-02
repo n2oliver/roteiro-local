@@ -6,6 +6,7 @@
       </q-avatar>
 
       <q-toolbar-title>Roteiro de Viagens</q-toolbar-title>
+      <add-local-button></add-local-button>
     </q-toolbar>
   </div>
 </template>
