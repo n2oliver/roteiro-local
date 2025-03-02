@@ -26,7 +26,7 @@ export default {
   props: {
     modelValue: Boolean,
     local_id: String, // Recebe o local_id do pai
-    update_list: Function, // Recebe o local_id do pai
+    update_list: Function,
   },
   emits: ['update:modelValue', 'confirm-delete'],
   setup(props, { emit }) {

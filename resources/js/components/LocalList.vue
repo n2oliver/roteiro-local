@@ -1,12 +1,14 @@
 <template>
-    <div class="q-pa-md sm:w-full md:w-2/3 lg:w-2/3 m-auto">
-      <h2 class="local-list-title">
-        <span style="min-width: 260px; display: flex; align-items: center">
-          <span style="padding-right: 8px">Roteiro de Viagens</span>
-          <img class="h-8 w-8 text-red-500" src="/icons/pin.svg">
-        </span>
-      </h2>
-  
+    <div class="sm:w-full md:w-2/3 lg:w-2/3 m-auto">
+      <q-btn
+        rounded
+        class="q-ma-md"
+        icon="add"
+        label="Adicionar local"
+        color="blue"
+        no-caps
+        @click="mostrarFormulario = true"
+        />
       <table border="1" class="local-list sm:w-full md:w-full lg:w-full">
         <thead>
           <tr>
@@ -35,16 +37,21 @@
       <div class="q-pa-md q-gutter-sm">
         <!-- Passando local_id como prop -->
         <delete-dialog v-model="confirm" :local_id="local_id" persistent  :update_list="update_list"></delete-dialog>
+        <form-add-local :mostrar="mostrarFormulario" @fechar="mostrarFormulario = false" :local_id="local_id" persistent  :update_list="update_list"></form-add-local>
       </div>
     </div>
   </template>
   
   <script>
   import { ref, onMounted } from 'vue';
+  import FormAddLocal from './FormAddLocal.vue';
   import DeleteDialog from './DeleteDialog.vue';
   
   export default {
-    components: { DeleteDialog },
+    data() {
+      return { mostrarFormulario: false };
+    },
+    components: { DeleteDialog, FormAddLocal },
     setup() {
       const confirm = ref(false);
       const local_id = ref(null);
