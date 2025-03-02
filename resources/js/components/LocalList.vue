@@ -1,6 +1,6 @@
 <template>
     <div class="sm:w-full md:w-2/3 lg:w-2/3 m-auto">
-      <table border="1" class="local-list sm:w-full md:w-full lg:w-full">
+      <table border="1" class="local-list m-auto sm:w-full md:w-full lg:w-full">
         <thead>
           <tr>
             <th>Local</th>
@@ -35,7 +35,7 @@
   <script>
   import { ref, onMounted } from 'vue';
   import DeleteDialog from './DeleteDialog.vue';
-import AddLocalButton from './AddLocalButton.vue';
+  import AddLocalButton from './AddLocalButton.vue';
   
   export default {
     data() {

@@ -52,7 +52,11 @@ export default {
             const row = document.querySelector(`[data-local_id="${props.local_id}"]`).closest("tr");
             if (row) row.remove();
 
-            $q.notify(`Local ${props.local_id} removido com sucesso.`);
+            $q.notify({
+              type: 'positive',
+              message: `Local ${props.local_id} removido com sucesso.`,
+              position: 'top'
+            });
             props.update_list();
         } else {
             console.error("Erro ao excluir o local.");
