@@ -17,5 +17,17 @@ class LocalController extends BaseController
     {
         return $this->localRepository->getLocals();
     }
+    public function destroy($id)
+    {
+        $local = $this->localRepository->find($id);
+
+        if (!$local) {
+            return response()->json(['message' => 'Local não encontrado'], 404);
+        }
+
+        $this->localRepository->delete($local);
+
+        return response()->json(['message' => 'Local removido com sucesso'], 200);
+    }
 }
 ?>

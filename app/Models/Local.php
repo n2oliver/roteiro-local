@@ -9,11 +9,11 @@ class Local extends Model
 {
     use HasFactory;
 
-    // Defina o nome da tabela caso seja diferente de "locals"
     protected $table = 'local.local';
+    protected $primaryKey = 'local_id';
 
-    // Se necessário, defina as colunas que podem ser preenchidas em massa
     protected $fillable = [
+        'local_id',
         'name',
         'slug',
         'city',
@@ -21,7 +21,4 @@ class Local extends Model
         'created_at',
         'updated_at',
     ];
-
-    // Caso a tabela não use os timestamps automáticos do Laravel
-    // public $timestamps = false;
 }
