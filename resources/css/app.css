@@ -7,6 +7,9 @@ body {
  background-size: 100vh 100hv;
  height: 100vh;
 }
+.q-toolbar {
+    min-width: 540px;
+}
 .local-list {
     border-top: 2px solid #000;
 }

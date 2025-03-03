@@ -21,6 +21,7 @@
 <script>
 import { computed } from 'vue';
 import { useQuasar } from 'quasar';
+import { addEvents } from '../add_events';
 
 export default {
   props: {
@@ -57,7 +58,7 @@ export default {
               message: `Local ${props.local_id} removido com sucesso.`,
               position: 'top'
             });
-            props.update_list();
+            props.update_list(() => addEvents(props.local_id, dialogVisivel));
         } else {
             console.error("Erro ao excluir o local.");
         }

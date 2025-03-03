@@ -26,6 +26,8 @@
 <script>
 import { ref } from 'vue';
 import { useQuasar } from 'quasar';
+import { updateList } from '../update_list';
+import { addEvents } from '../add_events';
 
 export default {
   props: ['mostrar'],
@@ -118,9 +120,15 @@ export default {
             }
         });
         if (response.ok) {
-          console.log('Enviado:', this.nome, this.email);
+          this.$q.notify({
+            type: 'positive',
+            message:  `Local "${this.name}" adicionado com sucesso!`,
+            position: 'top'
+          });
           this.$emit('fechar'); // Fecha o modal ao enviar
           this.resetForm();
+          const local_id = ref(null);
+          updateList(() => addEvents(local_id));
         }
     }
   }

@@ -18,6 +18,6 @@ export default {
     components: { FormAddLocal },
     data() {
       return { mostrarFormulario: false };
-    },
+    }
 }
 </script>
