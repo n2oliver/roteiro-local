@@ -12,6 +12,10 @@ Este projeto permite gerenciar roteiros de viagens, possibilitando ao usuário a
 - **Laravel 10**
 - **Vue 3.5.13**
 - **PostgreSQL 16**
+<<<<<<< HEAD
+=======
+- **Quasar Vite Plugin ^1.9.0**
+>>>>>>> main
 - **PHP ^8.1**
 
 ## Instalação
