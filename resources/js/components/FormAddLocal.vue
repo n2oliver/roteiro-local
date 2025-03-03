@@ -1,4 +1,5 @@
 <template>
+<div>
   <q-dialog :model-value="mostrar" @update:model-value="$emit('fechar')">
     <q-card style="width: 400px">
       <q-card-section>
@@ -21,6 +22,8 @@
       </q-card-section>
     </q-card>
   </q-dialog>
+  <delete-dialog v-model="confirmation" :local_id="local_id" persistent  :update_list="update_list"></delete-dialog>
+</div>
 </template>
 
 <script>
@@ -128,7 +131,8 @@ export default {
           this.$emit('fechar'); // Fecha o modal ao enviar
           this.resetForm();
           const local_id = ref(null);
-          updateList(() => addEvents(local_id));
+          const confirmation = ref(false);
+          updateList(() => addEvents(local_id, confirmation));
         }
     }
   }
