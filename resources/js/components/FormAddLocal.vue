@@ -22,15 +22,13 @@
       </q-card-section>
     </q-card>
   </q-dialog>
-  <delete-dialog v-model="confirmation" :local_id="local_id" persistent  :update_list="update_list"></delete-dialog>
+  <delete-dialog v-model="confirmation" :local_id="local_id" persistent></delete-dialog>
 </div>
 </template>
 
 <script>
 import { ref } from 'vue';
 import { useQuasar } from 'quasar';
-import { updateList } from '../update_list';
-import { addEvents } from '../add_events';
 
 export default {
   props: ['mostrar'],
@@ -41,12 +39,15 @@ export default {
       slug: '',
       city: '',
       state: '',
-      $q: useQuasar()
+      $q: useQuasar(),
     };
   },
   setup() {
     return {
       state: ref(null),
+      local_id: ref(null),
+      name: ref(''),
+      confirmation: ref(false),
       options: [
         'Acre',
         'Alagoas',
@@ -130,9 +131,7 @@ export default {
           });
           this.$emit('fechar'); // Fecha o modal ao enviar
           this.resetForm();
-          const local_id = ref(null);
-          const confirmation = ref(false);
-          updateList(() => addEvents(local_id, confirmation));
+          location.reload();
         }
     }
   }

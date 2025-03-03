@@ -12,7 +12,32 @@
             <th>Ações</th>
           </tr>
         </thead>
-        <tbody ref="data">
+        <tbody ref="data" v-if="loaded && localList" :key="recarregarKey">
+          <tr v-for="(local, index) in localList" :key="index">
+            <td>
+              {{ local.name }}
+            </td>
+            <td>
+              {{ local.slug }}
+            </td>
+            <td>
+              {{ local.city }}
+            </td>
+            <td>
+              {{ local.state }}
+            </td>
+            <td>
+              {{ moment(String(local.created_at)).format('MM/DD/YYYY hh:mm') }}
+            </td>
+            <td>
+              {{ moment(String(local.updated_at)).format('MM/DD/YYYY hh:mm') }}
+            </td>
+            <td>
+              <img class="delete" :data-local_id="local.local_id" @click="local_id=local.local_id.toString(); confirmation=true" src="/icons/trash.svg">
+            </td>
+          </tr>
+        </tbody>
+        <tbody ref="data" v-else>
           <tr>
             <td>
               <q-circular-progress
@@ -83,36 +108,54 @@
   
       <div class="q-pa-md q-gutter-sm">
         <!-- Passando local_id como prop -->
-        <delete-dialog v-model="confirmation" :local_id="local_id" persistent  :update_list="update_list"></delete-dialog>
+        <delete-dialog v-model="confirmation" :local_id="local_id" persistent></delete-dialog>
       </div>
     </div>
   </template>
   
   <script>
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, onBeforeUnmount } from 'vue';
+  import moment from 'moment';
   import DeleteDialog from './DeleteDialog.vue';
   import AddLocalButton from './AddLocalButton.vue';
-  import { updateList } from '../update_list.js';
-  import { addEvents } from '../add_events.js';
   
   export default {
     data() {
-      return { mostrarFormulario: false };
+      return {
+        mostrarFormulario: false,
+      };
     },
     methods: {
-      addEvents
+      moment: () => {
+        return moment();
+      }
     },
     components: { DeleteDialog, AddLocalButton },
     setup() {
       const confirmation = ref(false);
       const local_id = ref(null);
-      const update_list = ref(updateList);
+      const loaded = ref(false);
+      const localList = ref(null);
+      const recarregarKey = ref(0);
+
+      function updateList() {
+        recarregarKey.value++; // Isso força o Vue a recriar o componente
+      }
   
       onMounted(() => {
-        update_list.value(() => addEvents(local_id, confirmation));
+        window.addEventListener('atualizar-vue', updateList);
+        fetch('/locals')
+          .then(response => response.json())
+          .then(locals => {
+            loaded.value = true;
+            localList.value = locals;
+          })
+          .catch(error => console.error('Erro:', error));
       });
-  
-      return { confirmation, local_id, update_list };
+      onBeforeUnmount(() => {
+        window.removeEventListener('atualizar-vue', updateList);
+      });
+      return { loaded, localList, confirmation, local_id, updateList };
     }
   };
   </script>

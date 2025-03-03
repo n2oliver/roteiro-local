@@ -21,13 +21,11 @@
 <script>
 import { computed } from 'vue';
 import { useQuasar } from 'quasar';
-import { addEvents } from '../add_events';
 
 export default {
   props: {
     modelValue: Boolean,
     local_id: String, // Recebe o local_id do pai
-    update_list: Function,
   },
   emits: ['update:modelValue', 'confirm-delete'],
   setup(props, { emit }) {
@@ -40,7 +38,6 @@ export default {
     const removerLocal = async () => {
         console.log("Removendo local ID:", props.local_id);
         emit('confirm-delete', props.local_id);
-        emit('confirm-delete', props.update_list);
         const response = await fetch(`/locals/${props.local_id}`, {
             method: 'DELETE',
             headers: {
@@ -58,7 +55,6 @@ export default {
               message: `Local ${props.local_id} removido com sucesso.`,
               position: 'top'
             });
-            props.update_list(() => addEvents(props.local_id, dialogVisivel));
         } else {
             console.error("Erro ao excluir o local.");
         }

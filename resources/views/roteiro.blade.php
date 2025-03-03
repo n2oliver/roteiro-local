@@ -22,6 +22,10 @@
             <toolbar></toolbar>
             <local-list></local-list>
         </div>
-        {{-- including the app.js file --}}
+        <script>
+            function updateList() {
+                window.dispatchEvent(new Event('updateList'));
+            }
+        </script>
     </body>
 </html>
