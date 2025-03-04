@@ -1,13 +1,7 @@
+import { deleteLocal } from "../remote/locals";
+
 export async function deleteLocalHelper(props, $q) {
-    const response = await fetch(`/locals/${props.local_id}`, {
-        method: "DELETE",
-        headers: {
-            "X-CSRF-TOKEN": document
-                .querySelector('meta[name="csrf-token"]')
-                .getAttribute("content"),
-            "Content-Type": "application/json",
-        },
-    });
+    const response = await deleteLocal(props.local_id);
     if (response.ok) {
         // Remover o item da tabela
         const row = document

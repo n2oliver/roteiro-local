@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { postLocal } from "../remote/locals"
 export function data ($q) {
     return {
       nome: '',
@@ -76,19 +77,7 @@ export async function enviarFormulario(obj) {
         return false;
     }
     
-    const response = await fetch(`/locals`, {
-        method: 'POST',
-        body: JSON.stringify({
-          name: obj.name,
-          slug: obj.slug,
-          city: obj.city,
-          state: obj.state,
-        }),
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Content-Type': 'application/json'
-        }
-    });
+    const response = await postLocal(obj);
     if (response.ok) {
       obj.$q.notify({
         type: 'positive',

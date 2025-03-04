@@ -1,5 +1,6 @@
 import moment from "moment";
 import { ref, onMounted } from "vue";
+import { getLocals } from "../remote/locals";
 
 export const methods = {
     moment: () => {
@@ -17,14 +18,11 @@ export function setup() {
     const loaded = ref(false);
     const localList = ref(null);
 
-    onMounted(() => {
-        fetch("/locals")
-            .then((response) => response.json())
-            .then((locals) => {
-                loaded.value = true;
-                localList.value = locals;
-            })
-            .catch((error) => console.error("Erro:", error));
+    onMounted(async () => {
+        const locals = await getLocals();
+        
+        loaded.value = true;
+        localList.value = locals;
     });
     return { loaded, localList, confirmation, local_id };
 }
