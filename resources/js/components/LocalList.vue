@@ -12,7 +12,7 @@
             <th>Ações</th>
           </tr>
         </thead>
-        <tbody ref="data" v-if="loaded && localList" :key="recarregarKey">
+        <tbody ref="data" v-if="loaded && localList">
           <tr v-for="(local, index) in localList" :key="index">
             <td>
               {{ local.name }}
@@ -27,10 +27,10 @@
               {{ local.state }}
             </td>
             <td>
-              {{ moment(String(local.created_at)).format('MM/DD/YYYY hh:mm') }}
+              {{ new Date(local.created_at).toLocaleString() }}
             </td>
             <td>
-              {{ moment(String(local.updated_at)).format('MM/DD/YYYY hh:mm') }}
+              {{ new Date(local.created_at).toLocaleString() }}
             </td>
             <td>
               <img class="delete" :data-local_id="local.local_id" @click="local_id=local.local_id.toString(); confirmation=true" src="/icons/trash.svg">
