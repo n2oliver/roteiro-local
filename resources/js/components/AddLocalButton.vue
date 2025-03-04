@@ -7,7 +7,6 @@
             label="Adicionar local"
             color="blue"
             no-caps
-            onclick="updateList()"
             @click="mostrarFormulario = true"
         />
         <form-add-local

@@ -129,48 +129,14 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import moment from "moment";
 import DeleteDialog from "./DeleteDialog.vue";
 import AddLocalButton from "./AddLocalButton.vue";
+import { data, methods, setup } from "../helpers/localListHelper";
 
 export default {
-    data() {
-        return {
-            mostrarFormulario: false,
-        };
-    },
-    methods: {
-        moment: () => {
-            return moment();
-        },
-    },
+    data: data,
+    methods: methods,
     components: { DeleteDialog, AddLocalButton },
-    setup() {
-        const confirmation = ref(false);
-        const local_id = ref(null);
-        const loaded = ref(false);
-        const localList = ref(null);
-        const recarregarKey = ref(0);
-
-        function updateList() {
-            recarregarKey.value++; // Isso força o Vue a recriar o componente
-        }
-
-        onMounted(() => {
-            window.addEventListener("atualizar-vue", updateList);
-            fetch("/locals")
-                .then((response) => response.json())
-                .then((locals) => {
-                    loaded.value = true;
-                    localList.value = locals;
-                })
-                .catch((error) => console.error("Erro:", error));
-        });
-        onBeforeUnmount(() => {
-            window.removeEventListener("atualizar-vue", updateList);
-        });
-        return { loaded, localList, confirmation, local_id, updateList };
-    },
+    setup: setup,
 };
 </script>

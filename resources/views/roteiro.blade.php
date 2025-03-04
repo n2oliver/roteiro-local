@@ -22,10 +22,5 @@
             <toolbar></toolbar>
             <local-list></local-list>
         </div>
-        <script>
-            function updateList() {
-                window.dispatchEvent(new Event('updateList'));
-            }
-        </script>
     </body>
 </html>
