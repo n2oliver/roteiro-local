@@ -17,4 +17,5 @@ export async function deleteLocalHelper(props, $q) {
     } else {
         console.error("Erro ao excluir o local.");
     }
+    return response;
 }

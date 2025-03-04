@@ -29,3 +29,6 @@ export async function postLocal(obj) {
         }
     })
 }
+export default {
+    deleteLocal,
+}
