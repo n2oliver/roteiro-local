@@ -3,6 +3,11 @@ export async function getLocals() {
         .then((response) => response.json())
         .catch((error) => console.error("Erro:", error))
 }
+export async function getLocalById(localId) {
+    return await fetch(`/locals/${localId}`)
+        .then((response) => response.json())
+        .catch((error) => console.error("Erro:", error))
+}
 export async function deleteLocal(localId) {
     return await fetch(`/locals/${localId}`, {
         method: "DELETE",

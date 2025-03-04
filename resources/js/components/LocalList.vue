@@ -18,13 +18,13 @@
             <tbody ref="data" v-if="loaded && localList">
                 <tr v-for="(local, index) in localList" :key="index">
                     <td>
-                        {{ local.name }}
+                        {{ capitalizeFirstLetter(local.name) }}
                     </td>
                     <td>
                         {{ local.slug }}
                     </td>
                     <td>
-                        {{ local.city }}
+                        {{ capitalizeFirstLetter(local.city) }}
                     </td>
                     <td>
                         {{ local.state }}

@@ -7,7 +7,7 @@ use Illuminate\Database\QueryException;
 class LocalRepository {
     public function getLocals() {
         try {
-            $data = Local::all();
+            $data = Local::orderBy('name')->get();
             return $data;
         } catch (QueryException $e) {
             dd($e->getMessage());

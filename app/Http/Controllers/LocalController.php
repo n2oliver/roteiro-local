@@ -19,6 +19,10 @@ class LocalController extends BaseController
     {
         return $this->localRepository->getLocals();
     }
+    public function getLocalById(Request $request)
+    {
+        return $this->localRepository->find($request->id);
+    }
     public function deleteLocal($id)
     {
         $local = $this->localRepository->find($id);
