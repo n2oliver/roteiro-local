@@ -12,6 +12,13 @@ body {
 }
 .local-list {
     border-top: 2px solid #000;
+    background-color: white;
+}
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    width: 69px;
+    justify-content: center;
 }
 .local-list th {
     padding: 0 10px 0 10px;
@@ -40,9 +47,10 @@ body {
     text-transform: uppercase;
     padding: 5px 0 5px 0;
 }
-.local-list td {
+.local-list td:not(.acoes) {
     padding: 0 10px 0 10px;
     border-right: 1px solid #ccc;
-    background-color: white;
+}
+.local-list tr {
     border-bottom: dashed 1px #ccc;
 }

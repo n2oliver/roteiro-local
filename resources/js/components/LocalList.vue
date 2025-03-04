@@ -35,9 +35,12 @@
                     <td>
                         {{ new Date(local.created_at).toLocaleString() }}
                     </td>
-                    <td>
+                    <td class="acoes">
                         <img
-                            class="delete"
+                            :data-local_id="local.local_id"
+                            src="/icons/pen.svg"
+                        />
+                        <img
                             :data-local_id="local.local_id"
                             @click="
                                 local_id = local.local_id.toString();
