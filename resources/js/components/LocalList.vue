@@ -131,7 +131,8 @@
 <script>
 import DeleteDialog from "./DeleteDialog.vue";
 import AddLocalButton from "./AddLocalButton.vue";
-import { data, methods, setup } from "../helpers/localListHelper";
+import { data, listLocals, methods, setup } from "../helpers/localListHelper";
+import { ref, onMounted } from 'vue';
 
 export default {
     data: data,
