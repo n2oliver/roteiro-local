@@ -29,6 +29,22 @@ export async function postLocal(obj) {
         }
     })
 }
+
+export async function putLocal(obj, localId) {
+    return await fetch(`/locals/${localId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          name: obj.name,
+          slug: obj.slug,
+          city: obj.city,
+          state: obj.state,
+        }),
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Content-Type': 'application/json'
+        }
+    })
+}
 export default {
     deleteLocal,
 }

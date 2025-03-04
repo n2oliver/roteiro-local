@@ -21,8 +21,9 @@ export async function listLocals(loaded, localList) {
 }
 export function setup(loaded, localList) {
     const confirmation = ref(false);
+    const editing = ref(false);
     const local_id = ref(null);
-    return { loaded, localList, confirmation, local_id };
+    return { loaded, localList, confirmation, local_id, editing };
 }
 export default {
     listLocals

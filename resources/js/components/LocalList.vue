@@ -38,6 +38,10 @@
                     <td class="acoes">
                         <img
                             :data-local_id="local.local_id"
+                            @click="
+                                local_id = local.local_id.toString();
+                                mostrarFormulario = true;
+                            "
                             src="/icons/pen.svg"
                         />
                         <img
@@ -122,6 +126,13 @@
 
         <div class="q-pa-md q-gutter-sm">
             <!-- Passando local_id como prop -->
+            <form-add-local
+                :mostrar="mostrarFormulario"
+                @fechar="mostrarFormulario = false"
+                :local_id="local_id"
+                :editing="true"
+                persistent
+            ></form-add-local>
             <delete-local-dialog
                 v-model="confirmation"
                 :local_id="local_id"
@@ -134,13 +145,14 @@
 <script>
 import DeleteDialog from "./DeleteLocalDialog.vue";
 import AddLocalButton from "./AddLocalButton.vue";
+import FormAddLocal from "./FormAddLocal.vue";
 import { data, listLocals, methods, setup } from "../helpers/localListHelper";
 import { ref, onMounted } from 'vue';
 
 export default {
     data: data,
     methods: methods,
-    components: { DeleteDialog, AddLocalButton },
+    components: { DeleteDialog, AddLocalButton, FormAddLocal },
     setup: () => {
         const loaded = ref(false);
         const localList = ref(null);
