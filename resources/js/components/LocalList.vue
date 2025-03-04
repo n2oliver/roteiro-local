@@ -122,17 +122,17 @@
 
         <div class="q-pa-md q-gutter-sm">
             <!-- Passando local_id como prop -->
-            <delete-dialog
+            <delete-local-dialog
                 v-model="confirmation"
                 :local_id="local_id"
                 persistent
-            ></delete-dialog>
+            ></delete-local-dialog>
         </div>
     </div>
 </template>
 
 <script>
-import DeleteDialog from "./DeleteDialog.vue";
+import DeleteDialog from "./DeleteLocalDialog.vue";
 import AddLocalButton from "./AddLocalButton.vue";
 import { data, listLocals, methods, setup } from "../helpers/localListHelper";
 import { ref, onMounted } from 'vue';

@@ -60,11 +60,6 @@
                 </q-card-section>
             </q-card>
         </q-dialog>
-        <delete-dialog
-            v-model="confirmation"
-            :local_id="local_id"
-            persistent
-        ></delete-dialog>
     </div>
 </template>
 
