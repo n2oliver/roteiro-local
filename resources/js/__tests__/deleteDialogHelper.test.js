@@ -21,6 +21,7 @@ describe("No arquivo deleteDialogHelper,", () => {
     test("a funçao deleteLocalHelper deve chamar a função deleteLocal", async () => {
         const spy = jest.spyOn(locals, 'deleteLocal');
         const response = await deleteLocalHelper({ local_id: 1 }, $q);
+        
         locals.deleteLocal(1);
 
         expect(response.ok).toBe(true);
