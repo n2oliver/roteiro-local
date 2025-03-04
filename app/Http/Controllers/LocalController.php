@@ -19,7 +19,7 @@ class LocalController extends BaseController
     {
         return $this->localRepository->getLocals();
     }
-    public function destroy($id)
+    public function deleteLocal($id)
     {
         $local = $this->localRepository->find($id);
 
@@ -42,6 +42,19 @@ class LocalController extends BaseController
 
         $this->localRepository->insert($local);
         return response()->json(['message' => 'Local adicionado com sucesso!'], 200);
+    }
+    public function updateLocal(Request $request) {
+        $requestBody = $request->all();
+        $local = array(
+            "name" => $requestBody['name'],
+            "slug" => $requestBody['slug'],
+            "city" => $requestBody['city'],
+            "state" => $requestBody['state'],
+            "created_at" => \Carbon\Carbon::now()->format('Y-m-d H:i:s')
+        );
+
+        $this->localRepository->update($local, $request->id);
+        return response()->json(['message' => 'Local atualizado com sucesso!'], 200);
     }
 }
 ?>

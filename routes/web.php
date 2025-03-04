@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::controller(LocalController::class)->group(function() {
     Route::get('/locals', 'getLocals');
-    Route::delete('/locals/{id}', [LocalController::class, 'destroy']);
+    Route::delete('/locals/{id}', [LocalController::class, 'deleteLocal']);
+    Route::put('/locals/{id}', [LocalController::class, 'updateLocal']);
     Route::post('/locals', [LocalController::class, 'addLocal']);
 });

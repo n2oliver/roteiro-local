@@ -37,4 +37,11 @@ class LocalRepository {
             dd($e->getMessage());
         }
     }
+    public function update($local, $id) {
+        try {
+            Local::where('local_id', $id)->update($local);
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+        }
+    }
 }
