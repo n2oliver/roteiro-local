@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import { useQuasar } from "quasar";
 import { deleteLocalHelper } from "../helpers/deleteDialogHelper";
 import locals from "../remote/locals";
 

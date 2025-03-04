@@ -12,17 +12,24 @@ export function data() {
         mostrarFormulario: false,
     };
 }
+export async function listLocals(loaded, localList) {
+    const locals = await getLocals();
+    
+    loaded.value = true;
+    localList.value = locals;
+    return locals;
+}
 export function setup() {
     const confirmation = ref(false);
     const local_id = ref(null);
     const loaded = ref(false);
     const localList = ref(null);
 
-    onMounted(async () => {
-        const locals = await getLocals();
-        
-        loaded.value = true;
-        localList.value = locals;
+    onMounted(() => {
+        listLocals(loaded, localList);
     });
     return { loaded, localList, confirmation, local_id };
+}
+export default {
+    listLocals
 }
