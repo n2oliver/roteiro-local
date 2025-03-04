@@ -2,9 +2,6 @@ import { jest } from "@jest/globals";
 import { deleteLocalHelper } from "../helpers/deleteDialogHelper";
 import locals from "../remote/locals";
 
-await jest.unstable_mockModule("../remote/locals", () => ({
-    deleteLocal: jest.fn({ ok: true }),
-}));
 global.document = {
     querySelector: () => {
         return {
@@ -22,8 +19,12 @@ global.$q = {
 
 describe("No arquivo deleteDialogHelper,", () => {
     test("a funçao deleteLocalHelper deve chamar a função deleteLocal", async () => {
-        jest.spyOn(locals, "deleteLocal");
+        const mock = jest.spyOn(locals, 'deleteLocal');
         const response = await deleteLocalHelper({ local_id: 1 }, $q);
+        locals.deleteLocal(1);
+        
         expect(response.ok).toBe(true);
+        expect(mock).toHaveBeenCalled();
+
     });
 });

@@ -19,15 +19,9 @@ export async function listLocals(loaded, localList) {
     localList.value = locals;
     return locals;
 }
-export function setup() {
+export function setup(loaded, localList) {
     const confirmation = ref(false);
     const local_id = ref(null);
-    const loaded = ref(false);
-    const localList = ref(null);
-
-    onMounted(() => {
-        listLocals(loaded, localList);
-    });
     return { loaded, localList, confirmation, local_id };
 }
 export default {

@@ -137,6 +137,13 @@ export default {
     data: data,
     methods: methods,
     components: { DeleteDialog, AddLocalButton },
-    setup: setup,
+    setup: () => {
+        const loaded = ref(false);
+        const localList = ref(null);
+        onMounted(() => {
+            listLocals(loaded, localList);
+        });
+        return setup(loaded, localList);
+    },
 };
 </script>
