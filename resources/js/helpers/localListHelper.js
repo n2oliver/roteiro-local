@@ -1,5 +1,5 @@
 import moment from "moment";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { getLocals } from "../remote/locals";
 
 export const methods = {

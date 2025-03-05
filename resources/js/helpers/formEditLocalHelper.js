@@ -1,6 +1,6 @@
 import { putLocal } from "../remote/locals";
 
-export async function atualizarLocal(obj, localId) {
+export async function atualizarLocal(obj, localId, callback) {
     if (obj.name == "" || obj.slug == "" || obj.city == "" || obj.state == "") {
         obj.$q.notify({
             type: "negative",
@@ -19,6 +19,9 @@ export async function atualizarLocal(obj, localId) {
         });
         obj.$emit("fechar"); // Fecha o modal ao enviar
         obj.resetForm();
-        location.reload();
+        if(callback) {
+            callback();
+        }
+        return true
     }
 }

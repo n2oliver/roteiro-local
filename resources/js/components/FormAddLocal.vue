@@ -140,7 +140,7 @@ export default {
             enviarFormulario(this, $q);
         },
         async atualizarLocal(localId) {
-            atualizarLocal(this, localId);
+            atualizarLocal(this, localId, ()=> { location.reload() });
         },
     },
 };
