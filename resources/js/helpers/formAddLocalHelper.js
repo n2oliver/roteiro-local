@@ -2,8 +2,7 @@ import { ref } from 'vue';
 import { postLocal } from "../remote/locals"
 export function data ($q) {
     return {
-      nome: '',
-      email: '',
+      name: '',
       slug: '',
       city: '',
       state: '',
@@ -14,7 +13,6 @@ export function setup() {
     return {
         state: ref(null),
         local_id: ref(null),
-        name: ref(''),
         confirmation: ref(false),
         options: [
         'Acre',

@@ -59,7 +59,7 @@
                     </q-form>
                     <q-form v-else @submit.prevent="enviarFormulario">
                         <q-input
-                            v-model="name"
+                            :model-value="name"
                             label="Nome do local"
                             class="q-mb-sm"
                             filled
@@ -122,14 +122,36 @@ import {
     setup,
 } from "../helpers/formAddLocalHelper";
 import { atualizarLocal } from "../helpers/formEditLocalHelper";
+import { getLocalById } from '../remote/locals';
+import { watch } from 'vue';
 
 const $q = useQuasar();
-
+async function atualizaCampos(newLocalId) {
+    if (newLocalId) {
+        // Busque os dados do local e atualize os campos
+        const localData = await getLocalById(newLocalId);
+        console.log(localData.name);
+        console.log(localData.slug);
+        console.log(localData.city);
+        console.log(localData.state);
+    }
+}
 export default {
     props: ["mostrar", "editing", "local_id"],
-    data: () => data($q),
-    setup: () => setup(),
+    data() {
+        return data($q);
+    },
+    setup: (props, methods) => {
+        watch(
+            () => props.local_id,
+            async (newLocalId) => {
+                atualizaCampos(newLocalId);
+            }
+        );
+        return setup();
+    },
     methods: {
+        atualizaCampos,
         resetForm() {
             resetForm(this);
         },
