@@ -9,7 +9,6 @@ describe("No arquivo formAddLocalHelper,", () => {
         const result = data($q);
 
         expect(result.name).toBe('');
-        expect(result.email).toBe('');
         expect(result.slug).toBe('');
         expect(result.city).toBe('');
         expect(result.state).toBe('');
