@@ -10,7 +10,7 @@ export default defineConfig(({ command, mode }) => {
 
     return {
         build: {
-            outDir: 'public/build/.vite',
+            outDir: 'public/build',
             manifest: true,
             rollupOptions: {
                 input: "resources/js/app.js", // Arquivo de entrada principal

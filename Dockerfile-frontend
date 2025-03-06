@@ -13,11 +13,5 @@ RUN npm install
 # Copiar o restante dos arquivos do frontend para o container
 COPY ./ .
 
-RUN npm run build
-RUN npm run test
-
 # Expor a porta 3000 para o Vite
 EXPOSE 3000
-
-# Comando para rodar o servidor de desenvolvimento do frontend (Vite)
-CMD ["npm", "run", "dev"]

@@ -14,7 +14,9 @@ services:
       - NODE_ENV=local
     networks:
       - my-network
-    command: ["npm", "run", "dev"]
+    depends_on:
+      - backend
+    command: ["/bin/sh", "-c", "npm i && npm run build && npm run dev"]
 
   # Serviço do backend (Laravel)
   backend:
@@ -35,7 +37,7 @@ services:
       - my-network
     depends_on:
       - db
-    command: ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+    command: ["php", "artisan", "serve", "--host=localhost", "--port=8000"]
 
   # Banco de dados PostgreSQL
   db:

@@ -1,0 +1,8 @@
+node_modules/
+public/build/
+
+vendor/
+bootstrap/cache/
+storage/framework/cache/
+storage/logs/
+public/storage/
