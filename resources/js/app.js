@@ -10,6 +10,7 @@ import LocalList from './components/LocalList.vue';
 import DeleteLocalDialog from './components/DeleteLocalDialog.vue';
 
 const app = createApp({});
+
 app.use(Quasar, {
     plugins: {
         Notify

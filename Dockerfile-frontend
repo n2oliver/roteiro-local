@@ -1,0 +1,23 @@
+# Usar uma imagem base do Node.js
+FROM node:22
+
+# Definir o diretório de trabalho para o frontend
+WORKDIR /usr/src/app
+
+# Copiar o package.json e package-lock.json para instalar as dependências
+COPY ./package*.json ./
+
+# Instalar as dependências do Vite/Quasar
+RUN npm install
+
+# Copiar o restante dos arquivos do frontend para o container
+COPY ./ .
+
+RUN npm run build
+RUN npm run test
+
+# Expor a porta 3000 para o Vite
+EXPOSE 3000
+
+# Comando para rodar o servidor de desenvolvimento do frontend (Vite)
+CMD ["npm", "run", "dev"]

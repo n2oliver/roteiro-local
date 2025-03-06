@@ -1,0 +1,37 @@
+# Usar uma imagem base do PHP com FPM
+FROM php:8.1-fpm
+
+# Instalar dependências do sistema (bibliotecas para o Laravel e o Composer)
+RUN apt-get update && apt upgrade -y && apt-get install -y \
+    libpng-dev libjpeg-dev libfreetype6-dev \
+    libxml2-dev libzip-dev libpq-dev
+
+RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-install pgsql
+RUN docker-php-ext-enable pdo_pgsql pgsql
+
+RUN apt-get install -y git
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instalar o Composer (gerenciador de dependências PHP)
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Definir o diretório de trabalho do Laravel
+WORKDIR /usr/src/app
+
+# Copiar todos os arquivos do Laravel para dentro do container
+COPY ./ .
+
+# Instalar as dependências PHP do Laravel com o Composer
+RUN composer install --ignore-platform-reqs
+
+RUN mkdir -p storage/framework/sessions storage/framework/cache/data storage/framework/views
+RUN chmod -R 777 storage bootstrap/cache storage/framework/sessions storage/framework/cache/data storage/framework/views
+RUN php artisan storage:link
+
+# Expor a porta 8000 para o servidor Laravel
+EXPOSE 8000
+
+# Comando para iniciar o servidor PHP com o Artisan
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

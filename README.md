@@ -36,7 +36,7 @@ Este projeto permite gerenciar roteiros de viagens, possibilitando ao usuário a
     ```
 
 ## Uso
-- Acesse `http://localhost:5173` no navegador.
+- Acesse `http://localhost:8000` no navegador.
 - Utilize a interface para gerenciar seus roteiros.
 
 ## Contribuição
