@@ -4,11 +4,14 @@ FROM php:8.1-fpm
 # Instalar dependências do sistema (bibliotecas para o Laravel e o Composer)
 RUN apt-get update && apt upgrade -y && apt-get install -y \
     libpng-dev libjpeg-dev libfreetype6-dev \
-    libxml2-dev libzip-dev libpq-dev
-
+    libxml2-dev libzip-dev libpq-dev \
+    unzip zip
+    
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-install zip
 RUN docker-php-ext-install pdo_pgsql
 RUN docker-php-ext-install pgsql
-RUN docker-php-ext-enable pdo_pgsql pgsql
+RUN docker-php-ext-enable pdo_pgsql pgsql opcache zip
 
 RUN apt-get install -y git
 
@@ -22,12 +25,14 @@ WORKDIR /usr/src/app
 
 # Copiar todos os arquivos do Laravel para dentro do container
 COPY ./ .
+RUN mkdir bootstrap/cache
+RUN chmod -R 775 bootstrap/cache
 
 # Instalar as dependências PHP do Laravel com o Composer
 RUN composer install --ignore-platform-reqs
 
 RUN mkdir -p storage/framework/sessions storage/framework/cache/data storage/framework/views
-RUN chmod -R 777 storage bootstrap/cache storage/framework/sessions storage/framework/cache/data storage/framework/views
+RUN chmod -R 775 storage bootstrap/cache storage/framework/sessions storage/framework/cache/data storage/framework/views
 RUN php artisan storage:link
 
 # Expor a porta 8000 para o servidor Laravel
