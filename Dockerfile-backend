@@ -1,42 +1,40 @@
 # Usar uma imagem base do PHP com FPM
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
-# Instalar dependências do sistema (bibliotecas para o Laravel e o Composer)
-RUN apt-get update && apt upgrade -y && apt-get install -y \
+# Instalar dependências do sistema
+RUN apt-get update && apt-get install -y \
     libpng-dev libjpeg-dev libfreetype6-dev \
     libxml2-dev libzip-dev libpq-dev \
-    unzip zip
-    
-RUN docker-php-ext-install opcache
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install pdo_pgsql
-RUN docker-php-ext-install pgsql
-RUN docker-php-ext-enable pdo_pgsql pgsql opcache zip
-
-RUN apt-get install -y git
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    unzip zip git curl nginx \
+    && docker-php-ext-install gd zip pdo_pgsql pgsql xml opcache \
+    && docker-php-ext-enable pdo_pgsql pgsql opcache zip
 
 # Instalar o Composer (gerenciador de dependências PHP)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Definir o diretório de trabalho do Laravel
-WORKDIR /usr/src/app
+WORKDIR /var/www/html
 
 # Copiar todos os arquivos do Laravel para dentro do container
-COPY ./ .
-RUN mkdir bootstrap/cache
-RUN chmod -R 775 bootstrap/cache
+COPY . .
 
-# Instalar as dependências PHP do Laravel com o Composer
-RUN composer install --ignore-platform-reqs
+# Ajustar permissões para diretórios necessários
+RUN mkdir -p storage/framework/sessions storage/framework/cache/data storage/framework/views bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
 
-RUN mkdir -p storage/framework/sessions storage/framework/cache/data storage/framework/views
-RUN chmod -R 775 storage bootstrap/cache storage/framework/sessions storage/framework/cache/data storage/framework/views
-RUN php artisan storage:link
+# Instalar dependências do Laravel
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Expor a porta 8000 para o servidor Laravel
-EXPOSE 8000
+# Gerar chave da aplicação
+RUN php artisan key:generate
 
-# Comando para iniciar o servidor PHP com o Artisan
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Copiar arquivo de configuração do Nginx para o container
+COPY .docker/nginx/laravel.conf /etc/nginx/sites-available/default
+
+# Expor as portas 80 (Nginx) e 9000 (PHP-FPM)
+EXPOSE 80
+EXPOSE 9000
+
+# Iniciar o PHP-FPM e o Nginx
+CMD service nginx start && php-fpm

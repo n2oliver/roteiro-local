@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   # Serviço do frontend (Vite/Quasar)
   frontend:
@@ -5,8 +7,6 @@ services:
       context: .  # Contexto de construção para a pasta única
       dockerfile: Dockerfile-frontend
     container_name: my-app-frontend
-    volumes:
-      - ./:/usr/src/app/
     working_dir: /usr/src/app
     ports:
       - "3000:3000"  # Porta do Vite (frontend)
@@ -18,27 +18,33 @@ services:
       - backend
     command: ["/bin/sh", "-c", "npm i && npm run build && npm run dev"]
 
-  # Serviço do backend (Laravel)
+  # Serviço do backend (Laravel com Nginx)
   backend:
     build:
       context: .  # Contexto de construção para a pasta única
-      dockerfile: Dockerfile-backend
+      dockerfile: Dockerfile-backend  # Usando o Dockerfile-backend com Nginx
     container_name: my-app-backend
-    working_dir: /usr/src/app
+    working_dir: /var/www/html  # Diretório do Laravel no container
     volumes:
-      - ./:/usr/src/app/
-      - /usr/src/app/vendor
+      - ./app:/var/www/html/app
+      - ./bootstrap:/var/www/html/bootstrap
+      - ./config:/var/www/html/config
+      - ./database:/var/www/html/database
+      - ./public:/var/www/html/public
+      - ./resources:/var/www/html/resources
+      - ./routes:/var/www/html/routes
+      - ./storage:/var/www/html/storage
     ports:
-      - "8000:8000"  # Porta do Laravel
+      - "8000:8000"  # Porta 8000 para o Laravel via Artisan (serve)
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
-      - APP_KEY=base64:some_generated_key
+      - APP_KEY=base64:some_generated_key  # Certifique-se de gerar uma chave no seu ambiente
     networks:
       - my-network
     depends_on:
       - db
-    command: ["php", "artisan", "serve", "--host=localhost", "--port=8000"]
+    command: ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
 
   # Banco de dados PostgreSQL
   db:
