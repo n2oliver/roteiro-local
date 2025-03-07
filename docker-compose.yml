@@ -11,7 +11,7 @@ services:
     ports:
       - "3000:3000"  # Porta do Vite (frontend)
     environment:
-      - NODE_ENV=local
+      - NODE_ENV=${APP_ENV}
     networks:
       - my-network
     depends_on:
@@ -37,9 +37,9 @@ services:
     ports:
       - "8000:8000"  # Porta 8000 para o Laravel via Artisan (serve)
     environment:
-      - APP_ENV=local
-      - APP_DEBUG=true
-      - APP_KEY=base64:some_generated_key  # Certifique-se de gerar uma chave no seu ambiente
+      - APP_ENV=${APP_ENV}
+      - APP_DEBUG=${APP_DEBUG}
+      - APP_KEY=${APP_KEY}  # Certifique-se de gerar uma chave no seu ambiente
     networks:
       - my-network
     depends_on:

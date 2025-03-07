@@ -70,7 +70,7 @@ export default defineConfig(({ command, mode }) => {
             },
         },
         define: {
-            __APP_ENV__: env.APP_ENV,
+            '__APP_ENV__': JSON.stringify(process.env.APP_ENV || 'development')
         },
     };
 });
