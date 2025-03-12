@@ -9,7 +9,8 @@ class Local extends Model
 {
     use HasFactory;
 
-    protected $table = 'local.local';
+    protected $connection = 'pgsql';
+    protected $table = 'local';
     protected $primaryKey = 'local_id';
 
     protected $fillable = [
@@ -17,8 +18,6 @@ class Local extends Model
         'name',
         'slug',
         'city',
-        'state',
-        'created_at',
-        'updated_at',
+        'state'
     ];
 }

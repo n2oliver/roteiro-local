@@ -3,11 +3,11 @@ namespace App\Repositories;
 
 use App\Models\Local;
 use Illuminate\Database\QueryException;
-
+use DB;
 class LocalRepository {
     public function getLocals() {
         try {
-            $data = Local::orderBy('name')->get();
+            $data = Local::limit(10)->get();
             return $data;
         } catch (QueryException $e) {
             dd($e->getMessage());

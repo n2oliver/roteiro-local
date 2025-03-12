@@ -2,12 +2,29 @@
 FROM php:8.2-fpm
 
 # Instalar dependências do sistema
-RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev \
-    libxml2-dev libzip-dev libpq-dev \
-    unzip zip git curl nginx \
-    && docker-php-ext-install gd zip pdo_pgsql pgsql xml opcache \
-    && docker-php-ext-enable pdo_pgsql pgsql opcache zip
+RUN apt-get update
+RUN apt-get install -y libpng-dev
+RUN apt-get install -y libjpeg-dev
+RUN apt-get install -y libfreetype6-dev
+RUN apt-get install -y libxml2-dev
+RUN apt-get install -y libzip-dev
+RUN apt-get install -y libpq-dev
+RUN apt-get install -y unzip
+RUN apt-get install -y zip
+RUN apt-get install -y git
+RUN apt-get install -y curl
+RUN apt-get install -y nginx
+RUN apt update
+RUN apt install -y postgresql-client
+# RUN docker-php-ext-install gd
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-install pgsql
+RUN docker-php-ext-install xml
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-enable pdo_pgsql
+RUN docker-php-ext-enable pgsql
+RUN docker-php-ext-enable opcache zip
 
 # Instalar o Composer (gerenciador de dependências PHP)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

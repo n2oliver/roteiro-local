@@ -1,7 +1,9 @@
 export async function getLocals() {
     return await fetch("/locals")
         .then((response) => response.json())
-        .catch((error) => console.error("Erro:", error))
+        .catch((error) => {
+            console.error("Erro:", error);
+        })
 }
 export async function getLocalById(localId) {
     return await fetch(`/locals/${localId}`)
