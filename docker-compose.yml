@@ -11,7 +11,8 @@ services:
     environment:
       - NODE_ENV=${APP_ENV}
     volumes:
-      - ./:/var/www/html
+      - ./public:/var/www/html/public
+      - ./resources:/var/www/html/resources
     networks:
       - my-network
     depends_on:
@@ -24,6 +25,7 @@ services:
     container_name: my-db
     restart: unless-stopped
     environment:
+      DB_HOST: ${DB_HOST}
       DB_SCHEMA: ${DB_SCHEMA}
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER: ${DB_USERNAME}
@@ -45,14 +47,7 @@ services:
     container_name: my-app-backend
     working_dir: /var/www/html  # Diretório do Laravel no container
     volumes:
-      - ./app:/var/www/html/app
-      - ./bootstrap:/var/www/html/bootstrap
-      - ./config:/var/www/html/config
-      - ./database:/var/www/html/database
-      - ./public:/var/www/html/public
-      - ./resources:/var/www/html/resources
-      - ./routes:/var/www/html/routes
-      - ./storage:/var/www/html/storage
+      - .:/var/www/html/
     ports:
       - "8000:8000"  # Porta 8000 para o Laravel via Artisan (serve)
     environment:
@@ -70,7 +65,7 @@ services:
       - my-network
     depends_on:
       - db
-    command: ['sh', '-c', 'php artisan migrate & php artisan serve --host=0.0.0.0 --port=8000']
+    command: ['sh', '-c', "export DB_HOST=db && php artisan migrate --force && DB_HOST=${DB_HOST} php artisan serve --host=0.0.0.0 --port=8000"]
 
 networks:
   my-network:

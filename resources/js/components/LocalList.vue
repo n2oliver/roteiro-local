@@ -16,7 +16,10 @@
                 </tr>
             </thead>
             <tbody ref="data" v-if="loaded && localList">
-                <tr v-for="(local, index) in localList" :key="index">
+                <tr v-if="localList.length < 1">
+                    <td colspan="7" style="text-align: center">Clique em Adicionar Local para inserir um local ao roteiro!</td>
+                </tr>
+                <tr v-else v-for="(local, index) in localList" :key="index">
                     <td>
                         {{ capitalizeFirstLetter(local.name) }}
                     </td>

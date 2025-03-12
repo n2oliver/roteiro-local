@@ -86,6 +86,7 @@
                             class="q-mb-sm"
                             filled
                             :options="options"
+                            @change="fillState"
                         />
 
                         <div class="q-mt-md">
@@ -116,6 +117,7 @@
 import { useQuasar } from "quasar";
 import {
     autoFillSlug,
+    fillState,
     data,
     enviarFormulario,
     resetForm,
@@ -152,6 +154,7 @@ export default {
     },
     methods: {
         atualizaCampos,
+        fillState,
         resetForm() {
             resetForm(this);
         },

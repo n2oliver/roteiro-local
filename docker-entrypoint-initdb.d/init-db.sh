@@ -3,7 +3,7 @@ set -e
 
 # Espera o PostgreSQL iniciar
 echo "Aguardando o PostgreSQL iniciar..."
-until pg_isready -h localhost -p 5432 -U "$POSTGRES_USER"; do
+until pg_isready; do
   sleep 1
 done
 
