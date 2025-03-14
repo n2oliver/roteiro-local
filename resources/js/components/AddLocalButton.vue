@@ -7,7 +7,7 @@
             label="Adicionar local"
             color="blue"
             no-caps
-            @click="mostrarFormulario = true"
+            @click="abrirFormulario(this)"
         />
         <form-add-local
             :mostrar="mostrarFormulario"
@@ -19,10 +19,11 @@
 </template>
 <script>
 import FormAddLocal from "./FormAddLocal.vue";
-import { data, setup } from "../helpers/addLocalButtonHelper";
+import { data, setup, abrirFormulario } from "../helpers/addLocalButtonHelper";
 
 export default {
     components: { FormAddLocal },
+    methods: { abrirFormulario },
     data: data,
     setup: setup,
 };

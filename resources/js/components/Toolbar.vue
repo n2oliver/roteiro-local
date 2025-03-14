@@ -11,10 +11,8 @@
     </div>
 </template>
 <script>
-import FormAddLocal from "./FormAddLocal.vue";
 import { setup } from "../helpers/toolbarHelper";
 export default {
-    components: { FormAddLocal },
     setup: setup,
 };
 </script>
