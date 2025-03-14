@@ -1,25 +1,7 @@
-services:
-  # Serviço do frontend (Vite/Quasar)
-  frontend:
-    build:
-      context: .  # Contexto de construção para a pasta única
-      dockerfile: Dockerfile-frontend
-    container_name: my-app-frontend
-    working_dir: /var/www/html
-    ports:
-      - "3000:3000"  # Porta do Vite (frontend)
-    environment:
-      - NODE_ENV=${APP_ENV}
-    volumes:
-      - ./public:/var/www/html/public
-      - ./resources:/var/www/html/resources
-    networks:
-      - my-network
-    depends_on:
-      - backend
-    command: ["/bin/sh", "-c", "npm i && npm run build && npm run dev"]
+version: "3.8"
 
-  # Banco de dados PostgreSQL
+services:
+  # Banco de dados PostgreSQL (inicia primeiro)
   db:
     image: postgres:latest
     container_name: my-db
@@ -38,8 +20,13 @@ services:
       - my-network
     command:
       ["postgres", "-c", "listen_addresses=0.0.0.0"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
 
-  # Serviço do backend (Laravel com Nginx)
+  # Backend (só inicia depois que o banco de dados estiver pronto)
   backend:
     build:
       context: .  # Contexto de construção para a pasta única
@@ -64,8 +51,39 @@ services:
     networks:
       - my-network
     depends_on:
-      - db
-    command: ['sh', '-c', "export DB_HOST=db && php artisan migrate --force && DB_HOST=${DB_HOST} php artisan serve --host=0.0.0.0 --port=8000"]
+      db:
+        condition: service_healthy  # Backend só inicia quando o banco estiver pronto
+    command: ['sh', '-c', "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
+
+  # Frontend (só inicia depois que o backend estiver pronto)
+  frontend:
+    build:
+      context: .  # Contexto de construção para a pasta única
+      dockerfile: Dockerfile-frontend
+    container_name: my-app-frontend
+    working_dir: /var/www/html
+    ports:
+      - "3000:3000"  # Porta do Vite (frontend)
+    environment:
+      - NODE_ENV=${APP_ENV}
+    volumes:
+      - ./public:/var/www/html/public
+      - ./resources:/var/www/html/resources
+    networks:
+      - my-network
+    depends_on:
+      - backend
+    command: ["/bin/sh", "-c", "npm i && npm run build && npm run dev"]
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
 
 networks:
   my-network:
