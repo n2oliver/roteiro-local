@@ -6,6 +6,7 @@ import 'quasar/src/css/index.sass';
 
 import Toolbar from './components/Toolbar.vue';
 import AddLocalButton from './components/AddLocalButton.vue';
+import FormAddLocal from './components/FormAddLocal.vue';
 import LocalList from './components/LocalList.vue';
 import DeleteLocalDialog from './components/DeleteLocalDialog.vue';
 
@@ -23,5 +24,6 @@ app.component('toolbar', Toolbar);
 app.component('add-local-button', AddLocalButton);
 app.component('local-list', LocalList);
 app.component('delete-local-dialog', DeleteLocalDialog);
+app.component('form-add-local', FormAddLocal);
 
 app.mount('#app');
